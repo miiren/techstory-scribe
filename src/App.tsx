@@ -26,6 +26,10 @@ const App = () => (
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/login" element={<Auth />} />
           <Route path="/register" element={<Auth mode="register" />} />
+          <Route path="/tag/:id" element={<Index />} />
+          <Route path="/membership" element={<Index />} />
+          <Route path="/download" element={<Index />} />
+          <Route path="/tech" element={<Index />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -4,11 +4,13 @@ import { Link, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Search, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SearchDialog, useSearch } from './SearchDialog';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { open: searchOpen, setOpen: setSearchOpen } = useSearch();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,14 +49,18 @@ const Header = () => {
         </div>
         
         <div className="hidden md:flex items-center space-x-3">
-          <div className="relative group">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-            <input 
-              type="text" 
-              placeholder="搜索文章" 
-              className="bg-secondary/50 focus:bg-secondary pl-10 pr-4 py-2 rounded-full text-sm w-[200px] focus:w-[260px] transition-all duration-300 outline-none focus:ring-1 ring-border"
-            />
-          </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="relative group flex items-center gap-1 text-muted-foreground"
+            onClick={() => setSearchOpen(true)}
+          >
+            <Search className="w-4 h-4" />
+            <span>搜索</span>
+            <kbd className="pointer-events-none absolute right-1.5 top-1.5 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 group-hover:opacity-100 sm:flex">
+              <span className="text-xs">⌘</span>K
+            </kbd>
+          </Button>
           
           <Button variant="outline" size="sm" asChild>
             <Link to="/login">登录</Link>
@@ -89,14 +95,18 @@ const Header = () => {
             </nav>
             
             <div className="pt-3 border-t border-border">
-              <div className="relative mb-4">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <input 
-                  type="text" 
-                  placeholder="搜索文章" 
-                  className="bg-secondary/50 focus:bg-secondary pl-10 pr-4 py-2 rounded-full text-sm w-full transition-all duration-300 outline-none focus:ring-1 ring-border"
-                />
-              </div>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="flex items-center justify-center gap-2 w-full mb-3"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setSearchOpen(true);
+                }}
+              >
+                <Search className="w-4 h-4" />
+                <span>搜索</span>
+              </Button>
               
               <div className="flex space-x-3">
                 <Button variant="outline" size="sm" className="flex-1" asChild>
@@ -111,6 +121,9 @@ const Header = () => {
           </div>
         </div>
       )}
+
+      {/* Search Dialog */}
+      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </header>
   );
 };
