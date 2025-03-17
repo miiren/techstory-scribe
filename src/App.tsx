@@ -7,6 +7,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
+import WriteArticle from "./pages/WriteArticle";
+import Profile from "./pages/Profile";
+import Auth from "./pages/Auth";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +22,10 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/blog/:id" element={<BlogPost />} />
+          <Route path="/write" element={<WriteArticle />} />
+          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/login" element={<Auth />} />
+          <Route path="/register" element={<Auth mode="register" />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
