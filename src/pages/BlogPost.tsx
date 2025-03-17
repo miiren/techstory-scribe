@@ -1,12 +1,16 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { Calendar, MessageSquare, Bookmark, Share2, Eye, ThumbsUp, Award } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Prism from 'prismjs';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-typescript';
+import 'prismjs/components/prism-jsx';
+import 'prismjs/components/prism-css';
+import 'prismjs/themes/prism-tomorrow.css';
 
-// Mock article data
 const mockArticle = {
   id: '1',
   title: '深入理解Vue3响应式系统的设计与实现',
@@ -179,7 +183,6 @@ export default {
   tags: ['Vue', 'JavaScript', '前端', '响应式编程']
 };
 
-// Mock related articles
 const relatedArticles = [
   {
     id: '2',
@@ -214,24 +217,12 @@ const BlogPost = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   
   useEffect(() => {
-    // In a real app, we would fetch the article data based on the ID
     console.log(`Fetching article with ID: ${id}`);
     window.scrollTo(0, 0);
   }, [id]);
   
   useEffect(() => {
-    // Syntax highlighting
-    const highlight = async () => {
-      const Prism = await import('prismjs');
-      await import('prismjs/components/prism-javascript');
-      await import('prismjs/components/prism-typescript');
-      await import('prismjs/components/prism-jsx');
-      await import('prismjs/components/prism-css');
-      await import('prismjs/themes/prism-tomorrow.css');
-      Prism.highlightAll();
-    };
-    
-    highlight();
+    Prism.highlightAll();
   }, [article]);
   
   return (
@@ -288,13 +279,11 @@ const BlogPost = () => {
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-8">
-            {/* Article content */}
             <div 
               className="article-content"
               dangerouslySetInnerHTML={{ __html: article.content }}
             />
             
-            {/* Actions bar */}
             <div className="flex items-center justify-between mt-10 py-5 border-t border-b">
               <div className="flex items-center gap-4">
                 <Button 
@@ -343,7 +332,6 @@ const BlogPost = () => {
               </div>
             </div>
             
-            {/* Author info */}
             <div className="mt-10 p-6 bg-secondary/40 rounded-lg">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
@@ -362,7 +350,6 @@ const BlogPost = () => {
               </div>
             </div>
             
-            {/* Comments section (placeholder) */}
             <div className="mt-10">
               <h3 className="text-xl font-bold mb-6">评论 ({article.comments})</h3>
               
@@ -389,9 +376,7 @@ const BlogPost = () => {
           </div>
           
           <div className="lg:col-span-4 space-y-8">
-            {/* Author card */}
             <div className="sticky top-24">
-              {/* Related articles */}
               <div className="rounded-lg border">
                 <div className="px-5 py-4 border-b">
                   <h3 className="font-medium">相关文章</h3>
@@ -424,7 +409,6 @@ const BlogPost = () => {
                 </div>
               </div>
               
-              {/* Membership promotion */}
               <div className="mt-8 bg-gradient-to-br from-primary/10 to-purple-500/10 rounded-lg p-6 border border-primary/20">
                 <div className="flex items-center">
                   <Award className="text-primary w-5 h-5 mr-2" />
