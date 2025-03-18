@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -28,12 +27,10 @@ const Header = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header 
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4 px-6",
-        isScrolled ? "bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm" : "bg-transparent"
-      )}
-    >
+    <header className={cn(
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4 px-6",
+      isScrolled ? "bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm" : "bg-transparent"
+    )}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-6">
           <Link to="/" className="flex items-center space-x-2">
@@ -52,12 +49,12 @@ const Header = () => {
           <Button
             variant="ghost"
             size="sm"
-            className="relative group flex items-center gap-1 text-muted-foreground"
+            className="relative w-60 justify-start text-muted-foreground"
             onClick={() => setSearchOpen(true)}
           >
-            <Search className="w-4 h-4" />
-            <span>搜索</span>
-            <kbd className="pointer-events-none absolute right-1.5 top-1.5 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 group-hover:opacity-100 sm:flex">
+            <Search className="w-4 h-4 mr-2" />
+            <span className="flex-1 text-left">搜索</span>
+            <kbd className="hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground ml-auto">
               <span className="text-xs">⌘</span>K
             </kbd>
           </Button>
@@ -83,7 +80,6 @@ const Header = () => {
         </button>
       </div>
       
-      {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-white dark:bg-slate-900 shadow-lg animate-fade-in">
           <div className="py-4 px-6 flex flex-col space-y-4">
@@ -122,7 +118,6 @@ const Header = () => {
         </div>
       )}
 
-      {/* Search Dialog */}
       <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </header>
   );
